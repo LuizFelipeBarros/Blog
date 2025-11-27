@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+{% block conteudo %}    
+
+<div class="perfil-container">
+    <div class="perfil-card">
+        <h2 class="perfil-title">Seu Perfil</h2>
+        
+        <div class="perfil-foto-area">
+            {% if foto and foto != 'None' and foto != 'imgnull.png' %}
+                <img src="../static/uploads/{{ foto }}" alt="Foto de Perfil" class="perfil-foto">
+            {% else %}
+                <img src="../static/uploads/imgnull.png" alt="Foto Padrão" class="perfil-foto">
+            {% endif %}
+            <p class="perfil-username">@{{ usuario }}</p>
+        </div>
+        
+        <form class="perfil-form" action="/perfil" method="POST" enctype="multipart/form-data"> 
+            
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome" value="{{ nome }}" autocomplete="off" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="user">Nome de Usuário</label>
+                <input type="text" id="user" name="user" value="{{ usuario }}" autocomplete="off" required>
+            </div>
+
+            <div class="form-group">
+                <label for="foto-upload">Mudar Foto de Perfil</label>
+                
+                <input type="file" id="foto-upload" name="foto" accept="image/*" class="input-escondido">
+                
+                <label for="foto-upload" class="btn-foto-custom">
+                    Escolher Arquivo...
+                </label>
+                
+                <small class="form-hint">Selecione uma imagem para sua foto de perfil (Opcional).</small>
+            </div>
+            <button type="submit" class="btn-salvar">Salvar Alterações</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

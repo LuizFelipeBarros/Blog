@@ -1,0 +1,89 @@
+{% extends 'base.html' %} 
+{% block conteudo %}    
+<div class="dashboard-adm">
+    <h2 class="dashboard-title">Bem vindo a Área ADM !</h2>
+    <div class="dashboard-blocks">
+        <div class="dashboard-block">
+            <h3 class="block-title">Usuários (Total Ativos: {{ total_usuarios[0] }})</h3>
+            <div class="block-content">
+                <ul class="user-list">
+                    {% if not usuarios %}
+                        <li class="user-item"><p>Nenhum usuário cadastrado.</p></li>
+                    {% else %}
+                        {% for u in usuarios %}
+                        <li class="user-item">
+                            <div class="item-text">
+                                <span class="item-id">ID: {{ u.idUsuario }}</span>
+                                <span class="item-name">{{ u.nome }}</span>
+                                <span class="item-detail">@{{ u.user }}</span>
+                                <span class="item-status status-{{ 'ativo' if u.ativo else 'suspenso' }}">
+                                    Status: <strong>{{ 'Ativo' if u.ativo else 'Suspenso' }}</strong>
+                                </span>
+                            </div>
+                            <div class="item-actions">
+                                <a href="/resetarsenha/{{ u.idUsuario }}" 
+                                   class="btn-resetar confirm-link" 
+                                   data-username="{{ u.user }}"
+                                   data-acao="resetar a senha para nulo1234"> 
+                                    Resetar Senha
+                                </a>
+                                
+                                <a href="/banirusuario/{{ u.idUsuario }}" 
+                                   class="btn-{{ 'suspender' if u.ativo else 'ativar' }} confirm-link" 
+                                   data-username="{{ u.user }}"
+                                   data-acao="{{ 'suspender' if u.ativo else 'ativar' }}">
+                                    {{ 'Banir' if u.ativo else 'Ativar' }}
+                                </a>
+                                <a href="/excluirusuario/{{ u.idUsuario }}" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir o usuário {{ u.user }}?');">Excluir</a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="dashboard-block">
+            <h3 class="block-title">Posts (Total de Posts Publicados: {{ totais_posts[0] }})</h3>
+            <div class="block-content">
+                <ul class="post-list">
+                    
+                    {% if not postagens %}
+                        <li class="post-item"><p>Nenhuma postagem foi feita ainda.</p></li>
+                    {% else %}
+                        {% for p in postagens %}
+                        <li class="post-item">
+                            <div class="item-text">
+                                <span class="item-id">ID: {{ p.idPost }}</span>
+                                <span class="item-name">{{ p.titulo }}</span>
+                                <span class="item-detail">por: @{{ p.user }} | Conteúdo: {{ p.conteudo | truncate(30) }}</span>
+                                </div>
+                            <div class="item-actions">
+                                <a href="/excluirpost/{{ p.idPost }}" class="btn-excluir" onclick="return confirm('Tem certeza que deseja excluir o post {{ p.titulo }}?');">Excluir</a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+    </div>  
+</div>
+
+<script>
+    // Adicionar confirmação para links de suspensão/ativação e resetar senha
+    document.querySelectorAll('.confirm-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+            const username = this.getAttribute('data-username');
+            const acao = this.getAttribute('data-acao');
+            const mensagem = `Tem certeza que deseja resetar a senha do usuário ${username}?`;
+            
+            if (!confirm(mensagem)) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+{% endblock %}

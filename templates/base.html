@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Blog</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel = "icon" href="/static/img/galego.jfif">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../static/img/em_mannoel_user.png">
+            <h1>Blud Blog</h1>
+        </div>
+        <nav>
+            {% if 'usuario' in session or 'admin' in session %}
+                {% if 'admin' in session %}
+                <a href="/dashboard"><button>Área ADM</button></a>
+                <button><a href="/">Home</a></button>
+                {% else %}
+                <button><a href="/">Home</a></button>
+                <button><a href="/perfil">Perfil</a></button>
+                {% endif %}
+                <button><a href="/logout">Logout</a></button>
+            {% else %}
+                <button><a href="/login">Login</a></button>
+            {% endif %}
+        </nav>
+    </header>
+    {# Exibir mensagens flash globalmente para todas as páginas (top center, autoclose) #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container" aria-live="polite" role="status">
+                {% for category, msg in messages %}
+                    <div class="flash flash-{{ category }}" data-flash-category="{{ category }}">{{ msg }}</div>
+                {% endfor %}
+            </div>
+            <script>
+                // Auto-dismiss flashes with per-category duration
+                (function() {
+                    const flashes = document.querySelectorAll('.flash-container .flash');
+                    if (!flashes.length) return;
+                    flashes.forEach(f => {
+                        const cat = (f.dataset.flashCategory || '').toLowerCase();
+                        let timeout = 3000; // default
+                        if (cat === 'short' || cat === 'logout') timeout = 1200;
+                        else if (cat === 'success') timeout = 3000;
+                        else if (cat === 'error') timeout = 4500;
+
+                        setTimeout(() => {
+                            f.classList.add('hide');
+                            f.addEventListener('transitionend', () => {
+                                if (f.parentNode) f.parentNode.removeChild(f);
+                            });
+                        }, timeout);
+                    });
+                })();
+            </script>
+        {% endif %}
+    {% endwith %}
+    <main>
+        {% block conteudo %}{% endblock %}
+    </main>
+    <footer>
+        <p>Meu Blog - Feito com Flask</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1166 @@
+/* DOC CSS PROJETO BLOG - ÁREA ADM MODIFICADA */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- HEADER MODIFICADA - COR AZUL --- */
+header {
+    height: 12vh; /* Header ligeiramente menor */
+    background: linear-gradient(135deg, #0a192f 0%, #172a45 50%, #1e3a5f 100%); /* Tons de azul */
+    border-bottom: 3px solid #3498db; /* Azul em vez de vermelho */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 40px;
+    box-shadow: 0 6px 30px rgba(52, 152, 219, 0.3); /* Sombra azul */
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header .logo img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Azul */
+    padding: 3px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(52, 152, 219, 0.4); /* Sombra azul */
+    transition: all 0.3s ease;
+}
+
+header .logo:hover img {
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 6px 25px rgba(52, 152, 219, 0.6); /* Sombra azul */
+}
+
+header .logo h1 {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-shadow: 0 3px 20px rgba(52, 152, 219, 0.5); /* Sombra azul */
+    background: linear-gradient(135deg, #3498db, #2980b9, #1abc9c); /* Tons de azul e verde água */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Container para os botões da header */
+.header-buttons {
+    display: flex;
+    gap: 12px; /* Menor gap entre botões */
+    align-items: center;
+}
+
+/* Estilos gerais para todos os botões da header - MENORES */
+header nav {
+    display: flex;
+    gap: 12px; /* Menor gap entre botões */
+    align-items: center;
+}
+
+header nav button {
+    padding: 10px 20px; /* Botões menores */
+    border: none;
+    border-radius: 10px; /* Bordas ligeiramente menos arredondadas */
+    font-weight: 600;
+    font-size: 13px; /* Texto menor */
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Menor gap interno */
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.3px; /* Menor espaçamento */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.3), /* Sombra menor */
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+header nav button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+header nav button:hover::before {
+    left: 100%;
+}
+
+header nav button:hover {
+    transform: translateY(-2px) scale(1.03); /* Efeito hover mais sutil */
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.4), /* Sombra hover menor */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    letter-spacing: 0.5px;
+}
+
+/* --- Flash messages (global) --- */
+.flash-container {
+    position: fixed;
+    top: 10vh; /* aparece logo abaixo do header */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    pointer-events: none;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 20px;
+}
+
+.flash {
+    pointer-events: auto;
+    background: rgba(0,0,0,0.72);
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    backdrop-filter: blur(6px);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    transform: translateY(-6px);
+    opacity: 1;
+    width: auto;
+    max-width: 100%;
+    text-align: center;
+}
+
+.flash.hide {
+    transform: translateY(-30px);
+    opacity: 0;
+}
+
+header nav button:active {
+    transform: translateY(0) scale(1.01);
+}
+
+header nav button a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: inherit;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Menor gap interno */
+    width: 100%;
+    height: 100%;
+}
+
+/* Estilo para a saudação "Olá, usuário!" */
+header nav p {
+    color: #1abc9c; /* Verde água */
+    font-weight: 600;
+    margin: 0;
+    font-size: 14px;
+    padding-right: 5px;
+}
+
+
+/* Botão Home - AZUL */
+header nav button:nth-child(1) {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); /* Azul */
+    color: #ffffff;
+}
+
+header nav button:nth-child(1):hover {
+    background: linear-gradient(135deg, #3498db, #2573a7);
+}
+
+/* Botão Login/Área ADM - AZUL */
+header nav button:nth-child(2) {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); /* Azul */
+    color: #ffffff;
+}
+
+header nav button:nth-child(2):hover {
+    background: linear-gradient(135deg, #3498db, #2573a7);
+}
+
+/* Botão Logout - AZUL */
+header nav button:nth-child(3) {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%); /* Azul */
+    color: #ffffff;
+}
+
+header nav button:nth-child(3):hover {
+    background: linear-gradient(135deg, #3498db, #2573a7);
+}
+
+/* --- DASHBOARD DA ÁREA ADM - DOIS BLOCOS --- */
+.dashboard-adm {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.dashboard-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #3498db; /* Azul */
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+}
+
+.dashboard-blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.dashboard-block {
+    background: linear-gradient(145deg, #0a0a0a, #151515);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid #2f363d;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.block-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #3498db; /* Azul */
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.block-title i {
+    font-size: 1.3rem;
+}
+
+.block-content {
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3498db #0a0a0a;
+}
+
+.block-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.block-content::-webkit-scrollbar-track {
+    background: #0a0a0a;
+    border-radius: 10px;
+}
+
+.block-content::-webkit-scrollbar-thumb {
+    background: #3498db;
+    border-radius: 10px;
+}
+
+/* --- LISTAS DE USUÁRIOS E POSTS --- */
+.user-list, .post-list {
+    list-style: none;
+}
+
+.user-item, .post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #2f363d;
+    transition: background-color 0.2s ease;
+}
+
+.user-item:last-child, .post-item:last-child {
+    border-bottom: none; /* Remove a borda do último item */
+}
+
+.user-item:hover, .post-item:hover {
+    background-color: #111111;
+    border-radius: 8px;
+    cursor: default; /* Não é um item clicável por padrão */
+}
+
+.item-text {
+    /* Container para os dados do item */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    line-height: 1.2;
+}
+
+.item-id {
+    font-size: 0.9rem;
+    color: #3498db; /* Azul */
+    font-weight: 600;
+}
+
+.item-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.item-detail {
+    font-size: 0.9rem;
+    color: #95a5a6;
+}
+
+.item-status {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.status-ativo {
+    background: linear-gradient(135deg, #22c55e, #16a34a); /* Verde */
+    color: white;
+}
+
+.status-suspenso {
+    background: linear-gradient(135deg, #ef4444, #dc2626); /* Vermelho */
+    color: white;
+}
+
+/* --- BOTÕES EDITAR E EXCLUIR - VERDE E VERMELHO --- */
+.item-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-excluir {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Botão Excluir - VERMELHO */
+.btn-excluir {
+    background: linear-gradient(135deg, #ef4444, #dc2626); /* Vermelho */
+    color: white;
+}
+
+.btn-excluir:hover {
+    background: linear-gradient(135deg, #e11d1d, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Botão Suspender - VERMELHO */
+.btn-suspender {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #ef4444, #dc2626); /* Vermelho */
+    color: white;
+}
+
+.btn-suspender:hover {
+    background: linear-gradient(135deg, #e11d1d, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Botão Ativar - VERDE */
+.btn-ativar {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #22c55e, #16a34a); /* Verde */
+    color: white;
+}
+
+.btn-ativar:hover {
+    background: linear-gradient(135deg, #15803d, #127a2b);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4);
+}
+
+
+/* ---------------------------------------------------------------------------------- */
+/* Estilos de Páginas (mantidos ou adaptados para o tema escuro) */
+/* ---------------------------------------------------------------------------------- */
+
+/* --- Footer Simples --- */
+footer {
+    height: 40px; /* Reduzido para ser mais discreto */
+    background-color: #0d0d0d; /* Escuro discreto */
+    border-top: 1px solid #2f363d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #71767b;
+    width: 100%;
+    margin-top: auto; /* Garante que fique no rodapé */
+}
+
+/* --- Main e Colunas - Layout Fino e Centralizado --- */
+main {
+    flex: 1;
+    min-height: calc(100vh - 12vh - 40px); /* Ajuste de altura considerando header e footer */
+    display: flex;
+    justify-content: center;
+}
+
+.inicio {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.inicio .col-esquerda, .col-direita {
+    /* Estas colunas estão ocultas no seu CSS, mas mantidas por segurança */
+    width: 25%;
+    max-width: 300px;
+    background-color: transparent;
+    border-right: 1px solid #2f363d;
+    border-left: 1px solid #2f363d;
+    padding: 15px;
+    display: none; 
+}
+
+/* Coluna Central - Largura ideal para posts (máx. 600px) */
+.col-centro {
+    width: 100%;
+    max-width: 600px;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #000000;
+    border-left: 1px solid #2f363d;
+    border-right: 1px solid #2f363d;
+}
+
+/* --- Área de Postagem --- */
+.form-post {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    border-bottom: 1px solid #2f363d;
+}
+
+.form-post form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-post input[type="text"],
+.form-post textarea {
+    padding: 15px;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    border: 1px solid #2f363d;
+    border-radius: 10px;
+    font-size: 16px;
+    resize: vertical;
+    transition: all 0.3s ease;
+}
+
+.form-post input[type="text"]:focus,
+.form-post textarea:focus {
+    outline: none;
+    border-color: #3498db; /* Azul */
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2); /* Azul */
+}
+
+/* Botão Publicar - AZUL */
+.form-post button {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Azul */
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    align-self: flex-end;
+    width: 140px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        0 4px 15px rgba(52, 152, 219, 0.4), /* Sombra azul */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+.form-post button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.form-post button:hover::before {
+    left: 100%;
+}
+
+.form-post button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 8px 25px rgba(52, 152, 219, 0.6), /* Sombra azul */
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #3498db, #2573a7);
+    width: 150px;
+}
+
+.form-post button:active {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 
+        0 2px 10px rgba(52, 152, 219, 0.4), /* Sombra azul */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* --- Feed e Posts --- */
+.feed {
+    width: 100%;
+    min-height: 60vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    background-color: transparent;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.feed::-webkit-scrollbar {
+    display: none;
+}
+
+.feed .post {
+    width: 100%;
+    height: auto;
+    background-color: #000000;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #2f363d;
+    margin-bottom: 0;
+    padding: 20px;
+    min-height: 80px;
+    transition: background-color 0.2s;
+}
+
+.feed .post:hover {
+    background-color: #0d0d0d;
+    cursor: pointer;
+}
+
+/* --- ESTILOS DO CONTEÚDO DO POST --- */
+.post-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.post-header img {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Azul */
+    border-radius: 50% !important;
+    object-fit: cover;
+    padding: 2px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 3px 15px rgba(52, 152, 219, 0.4); /* Sombra azul */
+    transition: all 0.3s ease;
+}
+
+.post-header img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(52, 152, 219, 0.6); /* Sombra azul */
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.post-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+}
+
+.post-meta .post-usuario {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.post-meta .post-data {
+    color: #71767b;
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 2px;
+}
+
+.post-content h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.post-content p {
+    font-size: 15px;
+    color: #d9d9d9;
+    line-height: 1.5;
+}
+
+/* --- BOTÕES DE AÇÃO (EDITAR/EXCLUIR) --- */
+.post-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    gap: 15px;
+}
+
+.post-button a {
+    padding: 10px 24px;
+    text-decoration: none;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    min-width: 95px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.3px;
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.post-button a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.post-button a:hover::before {
+    left: 100%;
+}
+
+/* Botão Editar - VERDE */
+.post-button a:nth-child(1), .post-button a.editar {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 
+        0 4px 15px rgba(16, 185, 129, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.post-button a:nth-child(1):hover, .post-button a.editar:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 6px 20px rgba(16, 185, 129, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #10b981, #047857);
+}
+
+/* Botão Excluir - VERMELHO */
+.post-button a:nth-child(2), .post-button a.excluir {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 
+        0 4px 15px rgba(239, 68, 68, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.post-button a:nth-child(2):hover, .post-button a.excluir:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 
+        0 6px 20px rgba(239, 68, 68, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+/* --- LOGIN MELHORADO - AZUL --- */
+#login {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top right, #0a0a0a, #000000);
+}
+
+#login .form-login {
+    width: 420px;
+    height: 520px;
+    border: 1px solid #2f363d;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #0a0a0a, #151515);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+#login .form-login::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, rgba(0, 0, 0, 0) 70%); /* Azul */
+    z-index: 0;
+}
+
+#login .form-login > * {
+    position: relative;
+    z-index: 1;
+}
+
+#login h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #3498db, #ffffff); /* Azul */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+}
+
+#login p {
+    color: #aab8c2;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+#login input {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    border: 1px solid #2f363d;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+#login input:focus {
+    outline: none;
+    border-color: #3498db; /* Azul */
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2); /* Azul */
+}
+
+#login button {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #3498db, #2980b9); /* Azul */
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin-top: 10px;
+    box-shadow: 
+        0 4px 15px rgba(52, 152, 219, 0.4), /* Azul */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+#login button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+#login button:hover::before {
+    left: 100%;
+}
+
+#login button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 25px rgba(52, 152, 219, 0.6), /* Azul */
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #3498db, #2573a7);
+}
+
+#login button:active {
+    transform: translateY(-1px);
+    box-shadow: 
+        0 2px 10px rgba(52, 152, 219, 0.4), /* Azul */
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+#login .links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#login .links a {
+    color: #3498db; /* Azul */
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+#login .links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        padding: 0 20px;
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 15px;
+    }
+    
+    header .logo {
+        position: static;
+        transform: none;
+        margin-bottom: 15px;
+    }
+    
+    header nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    header nav button {
+        padding: 8px 16px; /* Botões ainda menores em mobile */
+        font-size: 12px;
+    }
+    
+    .dashboard-blocks {
+        grid-template-columns: 1fr; /* Um bloco por linha em mobile */
+    }
+    
+    .post-button {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .post-button a {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Adicione esta regra ao seu arquivo style.css */
+.btn-resetar {
+    background-color: #3b82f6; /* Um tom de azul */
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: bold;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 5px; 
+}
+
+.btn-resetar:hover {
+    background-color: #1d4ed8; /* Um azul mais escuro no hover */
+}
+
+.erro404 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.erro404 img{
+    width: 50%;
+}
+
+/* CONTAINER CENTRAL */
+.perfil-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 80vh; /* Ocupa a maior parte da tela */
+}
+
+/* CARTÃO DE PERFIL (Fundo escuro, borda azul clara) */
+/* CARTÃO DE PERFIL (Fundo escuro, borda azul clara) */
+.perfil-card {
+    background-color: #1a1a1a; /* Fundo escuro */
+    border: 1px solid #007bff; /* Borda azul/ciano, alinhada à cor de destaque da dashboard */
+    padding: 30px 40px;
+    border-radius: 12px;
+    width: 100%;
+    /* MODIFICAÇÃO: Aumentar a largura máxima do cartão de 450px para 600px */
+    max-width: 600px; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.perfil-title {
+    color: #ffffff;
+    font-size: 2em;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* ÁREA DA FOTO */
+.perfil-foto-area {
+    margin-bottom: 25px;
+}
+
+.perfil-foto {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #007bff;
+}
+
+.perfil-foto-padrao {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #333;
+    color: #ccc;
+    font-size: 4em;
+    line-height: 120px;
+    text-align: center;
+    margin: 0 auto;
+    border: 4px solid #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.perfil-username {
+    color: #aaa;
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+
+/* FORMULÁRIO */
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #ccc;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.perfil-form input[type="text"],
+.perfil-form input[type="password"],
+.perfil-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #2a2a2a; /* Fundo do input escuro */
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.perfil-form input[type="text"]:focus,
+.perfil-form input[type="password"]:focus,
+.perfil-form input[type="email"]:focus {
+    border-color: #007bff; /* Borda de foco azul */
+    outline: none;
+}
+
+/* BOTÃO DE SALVAR (Azul/Ciano) */
+.btn-salvar {
+    background-color: #007bff; /* Azul vibrante */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    font-weight: bold;
+}
+
+.btn-salvar:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
+}
+
+/* Estilo para a dica de formulário */
+.form-hint {
+    display: block;
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
+    text-align: left;
+}
+
+/* Opcional: Estilo básico para o input[type="file"] */
+.perfil-form input[type="file"] {
+    padding: 10px 0; /* Remove o padding horizontal para o file input */
+    background-color: transparent; /* Fundo transparente */
+    border: none;
+    border-radius: 0;
+    color: #fff;
+}
+/* Esconde o input de arquivo nativo */
+.input-escondido {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1; 
+}
+
+/* Estiliza o novo botão (LABEL) */
+.btn-foto-custom {
+    background-color: #007bff; /* Azul vibrante */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer; 
+    display: inline-block;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 5px; 
+    text-align: center;
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+.btn-foto-custom:hover {
+    background-color: #0056b3; 
+}
+/* Estilo para a dica de formulário */
+.form-hint {
+    display: block;
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
+    text-align: left;
+}

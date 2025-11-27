@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block conteudo %} 	
+
+<div id="login">
+    <form class="form-login" action="/cadastro" method="POST"> 
+        <h2>Faça seu cadastro</h2>
+        <input type="text" name="nome" placeholder="Digite o seu nome completo" autocomplete="off" required>
+        <input type="text" name="user" placeholder="Digite o seu nome de usuário" autocomplete="off" required>
+        <input type="password" name="senha" placeholder="Digite a sua senha" autocomplete="off" required>
+        <p>Já tem cadastro? <a href="/login">Faça o seu login.</a></p>
+        <button type="submit">Cadastrar</button>
+    </form>
+</div>
+
+{% endblock %}
