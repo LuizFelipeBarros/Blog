@@ -1,17 +1,15 @@
 from flask import Flask, render_template, request, redirect, flash, session
 from db import *
 import mysql.connector
-from dotenv import load_dotenv
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
+from config import*
 
-# Carregar variáveis do arquivo .env
-load_dotenv()
 
-# Acessar as variáveis do .env
-SECRET_KEY = os.getenv('SECRET_KEY')
-USUARIO_ADMIN = os.getenv('USUARIO_ADMIN')
-SENHA_ADMIN = os.getenv('SENHA_ADMIN')
+#Acessar as variáveis
+secret_key = SECRET_KEY
+usuario_admin = USUARIO_ADMIN
+senha_admin = SENHA_ADMIN
 
 # Inicializar Flask
 app = Flask(__name__)

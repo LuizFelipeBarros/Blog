@@ -1,17 +1,19 @@
 import mysql.connector
 from werkzeug.security import check_password_hash
+from config import * # importando as variáveis do config.py
 
-def conectar ():
+
+# Função para se conectar ao Banco de Dados SQL
+def conectar():
     conexao = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        password = "senai",
-        database = "blog_luiz"
+        host=HOST,   # variável do config.py
+        user=USER,   # variável do config.py
+        password=PASSWORD,   # variável do config.py
+        database=DATABASE   # variável do config.py
     )
-
     if conexao.is_connected():
-        print("Conexão com BD Ok!")
-
+        print("Conexão com BD OK!")
+    
     return conexao
 
 # Função para listar todas as postagens
